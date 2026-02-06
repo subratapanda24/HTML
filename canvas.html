@@ -39,9 +39,7 @@ const ctx = canvas.getContext("2d");
 let t = 0;
 let mouseX = canvas.width / 2;
 
-/* ======================
-   STARFIELD (DEPTH)
-====================== */
+
 const stars = Array.from({ length: 260 }, () => ({
   x: Math.random() * canvas.width,
   y: Math.random() * canvas.height,
@@ -63,15 +61,13 @@ function drawStars() {
   });
 }
 
-/* ======================
-   SATURN (DETAILED)
-====================== */
+
 function drawSaturn() {
   const x = canvas.width * 0.18;
   const y = canvas.height * 0.75;
   const r = 48;
 
-  // rings (layered)
+
   for (let i = 0; i < 4; i++) {
     ctx.beginPath();
     ctx.ellipse(
@@ -86,7 +82,7 @@ function drawSaturn() {
     ctx.stroke();
   }
 
-  // planet body
+ 
   const g = ctx.createRadialGradient(
     x - 15, y - 15, 10,
     x, y, r
@@ -100,22 +96,20 @@ function drawSaturn() {
   ctx.fillStyle = g;
   ctx.fill();
 
-  // shadow edge (terminator)
+
   ctx.beginPath();
   ctx.arc(x + 10, y, r, 0, Math.PI * 2);
   ctx.fillStyle = "rgba(0,0,0,0.25)";
   ctx.fill();
 }
 
-/* ======================
-   JUPITER (DETAILED)
-====================== */
+
 function drawJupiter() {
   const x = canvas.width * 0.84;
   const y = canvas.height * 0.28;
   const r = 60;
 
-  // base sphere
+
   const g = ctx.createRadialGradient(
     x - 18, y - 18, 12,
     x, y, r
@@ -129,7 +123,7 @@ function drawJupiter() {
   ctx.fillStyle = g;
   ctx.fill();
 
-  // atmospheric bands
+
   for (let i = -3; i <= 3; i++) {
     ctx.beginPath();
     ctx.arc(x, y + i * 12, r, 0, Math.PI * 2);
@@ -138,7 +132,7 @@ function drawJupiter() {
     ctx.stroke();
   }
 
-  // great red spot (stylized)
+
   ctx.beginPath();
   ctx.ellipse(x + 18, y + 12, 10, 6, 0.2, 0, Math.PI * 2);
   ctx.fillStyle = "rgba(180,80,60,0.45)";
@@ -151,9 +145,7 @@ function drawJupiter() {
   ctx.fill();
 }
 
-/* ======================
-   ORIGINAL SYSTEM
-====================== */
+
 
 const nodes = ["2024", "2025", "2026", "∞"];
 
