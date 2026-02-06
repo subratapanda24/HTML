@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>2026 — Forward System</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: #0b0e14;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+  }
+
+  canvas {
+    background: radial-gradient(circle at top, #141a30, #05070d);
+    border-radius: 26px;
+    box-shadow:
+      0 70px 160px rgba(0,0,0,0.85),
+      inset 0 0 140px rgba(255,255,255,0.03);
+  }
+</style>
+</head>
+
+<body>
+
+<canvas id="c" width="980" height="560"></canvas>
+
+<script>
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+
+let t = 0;
+let mouseX = canvas.width / 2;
+
+/* ======================
+   STARFIELD (DEPTH)
+====================== */
+const stars = Array.from({ length: 260 }, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  z: Math.random() * 1.2 + 0.2
+}));
+
+function drawStars() {
+  stars.forEach(s => {
+    ctx.beginPath();
+    ctx.arc(
+      s.x + Math.sin(t * 0.0003) * 25 * s.z,
+      s.y + Math.cos(t * 0.0002) * 25 * s.z,
+      s.z * 1.3,
+      0,
+      Math.PI * 2
+    );
+    ctx.fillStyle = `rgba(255,255,255,${0.35 * s.z})`;
+    ctx.fill();
+  });
+}
+
+/* ======================
+   SATURN (DETAILED)
+====================== */
+function drawSaturn() {
+  const x = canvas.width * 0.18;
+  const y = canvas.height * 0.75;
+  const r = 48;
+
+  // rings (layered)
+  for (let i = 0; i < 4; i++) {
+    ctx.beginPath();
+    ctx.ellipse(
+      x, y,
+      r * (2.2 + i * 0.15),
+      r * (0.7 + i * 0.05),
+      -0.35,
+      0, Math.PI * 2
+    );
+    ctx.strokeStyle = `rgba(200,200,255,${0.08 - i * 0.015})`;
+    ctx.lineWidth = 6;
+    ctx.stroke();
+  }
+
+  // planet body
+  const g = ctx.createRadialGradient(
+    x - 15, y - 15, 10,
+    x, y, r
+  );
+  g.addColorStop(0, "#efe8ff");
+  g.addColorStop(0.6, "#9a92d8");
+  g.addColorStop(1, "#3a3f7a");
+
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fillStyle = g;
+  ctx.fill();
+
+  // shadow edge (terminator)
+  ctx.beginPath();
+  ctx.arc(x + 10, y, r, 0, Math.PI * 2);
+  ctx.fillStyle = "rgba(0,0,0,0.25)";
+  ctx.fill();
+}
+
+/* ======================
+   JUPITER (DETAILED)
+====================== */
+function drawJupiter() {
+  const x = canvas.width * 0.84;
+  const y = canvas.height * 0.28;
+  const r = 60;
+
+  // base sphere
+  const g = ctx.createRadialGradient(
+    x - 18, y - 18, 12,
+    x, y, r
+  );
+  g.addColorStop(0, "#ffe7c8");
+  g.addColorStop(0.5, "#c98a56");
+  g.addColorStop(1, "#5a3b22");
+
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fillStyle = g;
+  ctx.fill();
+
+  // atmospheric bands
+  for (let i = -3; i <= 3; i++) {
+    ctx.beginPath();
+    ctx.arc(x, y + i * 12, r, 0, Math.PI * 2);
+    ctx.strokeStyle = "rgba(110,60,35,0.18)";
+    ctx.lineWidth = 6;
+    ctx.stroke();
+  }
+
+  // great red spot (stylized)
+  ctx.beginPath();
+  ctx.ellipse(x + 18, y + 12, 10, 6, 0.2, 0, Math.PI * 2);
+  ctx.fillStyle = "rgba(180,80,60,0.45)";
+  ctx.fill();
+
+  // shadow edge
+  ctx.beginPath();
+  ctx.arc(x + 12, y, r, 0, Math.PI * 2);
+  ctx.fillStyle = "rgba(0,0,0,0.22)";
+  ctx.fill();
+}
+
+/* ======================
+   ORIGINAL SYSTEM
+====================== */
+
+const nodes = ["2024", "2025", "2026", "∞"];
+
+const particles = Array.from({ length: 80 }, () => ({
+  x: Math.random() * canvas.width,
+  layer: Math.random() * 0.6 + 0.4,
+  offset: Math.random() * 1000,
+  speed: Math.random() * 0.8 + 0.3
+}));
+
+canvas.addEventListener("mousemove", e => {
+  const r = canvas.getBoundingClientRect();
+  mouseX = e.clientX - r.left;
+});
+
+function drawGrid() {
+  ctx.strokeStyle = "rgba(255,255,255,0.02)";
+  for (let x = 0; x < canvas.width; x += 60) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, canvas.height);
+    ctx.stroke();
+  }
+}
+
+function drawTimeline(depth = 1) {
+  ctx.beginPath();
+  ctx.moveTo(0, canvas.height / 2);
+
+  for (let x = 0; x <= canvas.width; x++) {
+    const influence = (mouseX - canvas.width / 2) * 0.0006;
+    const y =
+      canvas.height / 2 +
+      Math.sin((x + t * depth) * 0.013) * 32 * depth +
+      influence * (x - canvas.width / 2);
+    ctx.lineTo(x, y);
+  }
+
+  ctx.strokeStyle = `rgba(0,180,255,${0.18 * depth})`;
+  ctx.lineWidth = 7 * depth;
+  ctx.stroke();
+}
+
+function drawParticles() {
+  particles.forEach(p => {
+    const y =
+      canvas.height / 2 +
+      Math.sin((p.x + t + p.offset) * 0.013) * 32;
+
+    ctx.beginPath();
+    ctx.arc(p.x, y, 2.4 * p.layer, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${0.6 * p.layer})`;
+    ctx.fill();
+
+    p.x += p.speed * p.layer;
+    if (p.x > canvas.width) p.x = 0;
+  });
+}
+
+function drawMarkers() {
+  ctx.font = "500 14px Inter";
+  ctx.fillStyle = "rgba(255,255,255,0.6)";
+  ctx.textAlign = "center";
+
+  nodes.forEach((n, i) => {
+    const x = (canvas.width / (nodes.length + 1)) * (i + 1);
+    ctx.fillText(n, x, canvas.height / 2 + 60);
+  });
+}
+
+function drawText() {
+  const breathe = Math.sin(t * 0.02) * 4;
+
+  ctx.textAlign = "center";
+  ctx.shadowColor = "rgba(0,180,255,0.5)";
+  ctx.shadowBlur = 26;
+
+  ctx.font = "700 60px Inter";
+  ctx.fillStyle = "#ffffff";
+  ctx.fillText("2026", canvas.width / 2, 165 + breathe);
+
+  ctx.shadowBlur = 0;
+
+  ctx.font = "300 18px Inter";
+  ctx.fillStyle = "rgba(255,255,255,0.7)";
+  ctx.fillText("Direction matters more than speed", canvas.width / 2, 215);
+
+  ctx.font = "500 14px Inter";
+  ctx.fillStyle = "rgba(0,180,255,0.9)";
+  ctx.fillText("→ move with intent", canvas.width / 2, 250);
+}
+
+function drawScan() {
+  ctx.fillStyle = "rgba(255,255,255,0.01)";
+  for (let y = 0; y < canvas.height; y += 4) {
+    ctx.fillRect(0, y, canvas.width, 1);
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  drawStars();
+  drawSaturn();
+  drawJupiter();
+
+  drawGrid();
+  drawTimeline(1.3);
+  drawTimeline(1);
+  drawParticles();
+  drawMarkers();
+  drawText();
+  drawScan();
+
+  t += 1.1;
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
