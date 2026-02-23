@@ -1,11 +1,10 @@
-/* CSS Reset (Performance + Consistency) */
+
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Box Sizing */
+  box-sizing: border-box; 
 }
 
-/* CSS Variables (Custom Properties) */
 :root {
   --primary: #0a3d62;
   --secondary: #00bcd4;
@@ -14,45 +13,41 @@
   --radius: 12px;
 }
 
-/* =====================================================
-   ELEMENT, CLASS, ID, GROUPING, UNIVERSAL SELECTORS
-   ===================================================== */
+
 
 body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: var(--light-bg);
   color: var(--dark);
-  scroll-behavior: smooth; /* Scrolling */
+  scroll-behavior: smooth; 
 }
 
-/* Grouping selector */
+
 h1, h2, h3 {
   letter-spacing: 1px;
 }
 
-/* ID selector */
+
 #highlight {
   color: red;
 }
 
-/* =====================================================
-   NAVIGATION – DISPLAY, FLEX, POSITION, Z-INDEX
-   ===================================================== */
+
 
 nav {
-  background: linear-gradient(90deg, var(--primary), #1e6091); /* Gradient */
+  background: linear-gradient(90deg, var(--primary), #1e6091); 
   color: white;
-  padding: 1rem 3vw; /* vw unit */
+  padding: 1rem 3vw; 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky; /* Position */
+  position: sticky; 
   top: 0;
   z-index: 10;
 }
 
 nav ul {
-  list-style: none; /* List styling */
+  list-style: none; 
   display: flex;
   gap: 2rem;
 }
@@ -62,12 +57,11 @@ nav ul li {
   position: relative;
 }
 
-/* Pseudo-class */
+
 nav ul li:hover {
   color: var(--secondary);
 }
 
-/* Pseudo-element */
 nav ul li::after {
   content: "";
   position: absolute;
@@ -83,12 +77,9 @@ nav ul li:hover::after {
   width: 100%;
 }
 
-/* =====================================================
-   HERO SECTION – BACKGROUND, UNITS, TRANSITIONS
-   ===================================================== */
 
 .hero {
-  height: 60vh; /* vh unit */
+  height: 60vh; 
   background: 
     linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
     url("hero.jpg") center / cover no-repeat;
@@ -98,12 +89,12 @@ nav ul li:hover::after {
 }
 
 .hero h1 {
-  font-size: clamp(2rem, 5vw, 4rem); /* clamp() */
+  font-size: clamp(2rem, 5vw, 4rem); 
 }
 
-/* Button styling */
+
 .hero button {
-  padding: 0.8em 2em; /* em unit */
+  padding: 0.8em 2em; 
   border: none;
   border-radius: var(--radius);
   background: var(--secondary);
@@ -114,27 +105,22 @@ nav ul li:hover::after {
 }
 
 .hero button:hover {
-  transform: scale(1.05); /* 2D Transform */
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3); /* Shadow */
+  transform: scale(1.05); 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
 }
 
-/* =====================================================
-   ABOUT – BOX MODEL, MAX-WIDTH, TEXT
-   ===================================================== */
+
 
 .about {
   max-width: 800px;
-  margin: 4rem auto; /* Margin */
-  padding: 2rem;     /* Padding */
+  margin: 4rem auto; 
+  padding: 2rem;     
   background: white;
   border-radius: var(--radius);
-  outline: 2px dashed var(--secondary); /* Outline */
+  outline: 2px dashed var(--secondary); 
   text-align: center;
 }
 
-/* =====================================================
-   COURSES – INLINE-BLOCK, ATTRIBUTE SELECTORS
-   ===================================================== */
 
 .courses {
   text-align: center;
@@ -142,12 +128,12 @@ nav ul li:hover::after {
 }
 
 .course-card {
-  display: inline-block; /* inline-block */
+  display: inline-block; 
   width: 260px;
   margin: 1rem;
   background: white;
   border-radius: var(--radius);
-  overflow: hidden; /* Overflow */
+  overflow: hidden; 
   box-shadow: 0 5px 15px rgba(0,0,0,0.15);
   transition: transform 0.4s;
 }
@@ -156,12 +142,11 @@ nav ul li:hover::after {
   transform: translateY(-10px);
 }
 
-/* Attribute selector */
+
 img[alt] {
   border-bottom: 4px solid var(--secondary);
 }
 
-/* Object-fit & aspect-ratio */
 .course-card img {
   width: 100%;
   height: 180px;
@@ -169,15 +154,12 @@ img[alt] {
   aspect-ratio: 16 / 9;
 }
 
-/* =====================================================
-   GALLERY – FILTERS, POINTER EVENTS
-   ===================================================== */
 
 .gallery img {
   width: 100%;
   height: 300px;
   object-fit: cover;
-  filter: grayscale(40%); /* Image filter */
+  filter: grayscale(40%); 
   transition: filter 0.4s;
 }
 
@@ -185,21 +167,15 @@ img[alt] {
   filter: grayscale(0%);
 }
 
-/* =====================================================
-   FOOTER – INHERITANCE & OPACITY
-   ===================================================== */
 
 footer {
   background: var(--primary);
   color: white;
   text-align: center;
   padding: 1.5rem;
-  opacity: 0.95; /* Opacity */
+  opacity: 0.95; 
 }
 
-/* =====================================================
-   LINKS, COUNTERS, TABLE (DEMO)
-   ===================================================== */
 
 a {
   text-decoration: none;
@@ -210,7 +186,6 @@ a:hover {
   text-decoration: underline;
 }
 
-/* CSS Counter */
 body {
   counter-reset: section;
 }
@@ -221,9 +196,6 @@ h2::before {
   color: var(--secondary);
 }
 
-/* =====================================================
-   ANIMATIONS – KEYFRAMES
-   ===================================================== */
 
 @keyframes wave {
   0% { transform: translateX(0); }
@@ -235,35 +207,26 @@ h2::before {
   animation: wave 2s infinite ease-in-out;
 }
 
-/* =====================================================
-   3D TRANSFORM & TRANSFORM ORIGIN
-   ===================================================== */
 
 .course-card {
   transform-origin: center;
 }
 
 .course-card:hover {
-  transform: rotateY(8deg); /* 3D transform */
+  transform: rotateY(8deg); 
 }
 
-/* =====================================================
-   MODERN UI & PERFORMANCE
-   ===================================================== */
 
 .hero {
-  will-change: transform; /* Performance */
-  contain: layout paint;  /* CSS Containment */
+  will-change: transform; 
+  contain: layout paint;  
 }
 
-/* Backdrop filter */
+
 nav {
   backdrop-filter: blur(5px);
 }
 
-/* =====================================================
-   IMPORTANT, INITIAL, UNSET, REVERT
-   ===================================================== */
 
 footer p {
   color: white;
@@ -277,7 +240,7 @@ footer strong {
   color: revert;
 }
 
-/* !important (specificity demo) */
+
 .hero p {
   color: yellow !important;
 }

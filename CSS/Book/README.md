@@ -1,4 +1,4 @@
-# 📚 BookNest – Premium Bookstore Landing Page
+# 📚 BookNest – Bookstore Landing Page
 
 BookNest is a modern bookstore landing page built using HTML and CSS.  
 It showcases featured books, cozy reading spaces, and a clean premium UI layout.
