@@ -76,7 +76,7 @@
 
 .about-box,
 .special-box {
-  flex: 1;              /* equal width */
+  flex: 1;     
 }
 
 .about-box h2,
@@ -108,10 +108,10 @@
 .about-box,
 .special-box {
   flex: 1;
-  border: 2px solid rgb(66, 32, 8);   /* 👈 border line */
+  border: 2px solid rgb(66, 32, 8);  
   padding: 30px;
-  border-radius: 8px;                /* optional */
-  background: transparent;           /* no fill */
+  border-radius: 8px;                
+  background: transparent;           
 }
 
 .about-box h2,
