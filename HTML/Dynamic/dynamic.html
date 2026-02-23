@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motion</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --text-main: #000;
+  --text-muted: #666;
+  --accent-blue: #006ebc;
+  --nav-height: 72px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+
+nav {
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.logo { font-weight: 800; font-size: 20px; text-decoration: none; color: #000; }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.nav-link { text-decoration: none; color: #333; font-size: 14px; font-weight: 500; }
+.btn { padding: 10px 18px; border-radius: 6px; font-weight: 600; font-size: 14px; text-decoration: none; }
+.btn-blue { background: var(--accent-blue); color: #fff; }
+.btn-outline { border: 1px solid #ddd; color: #000; }
+
+/* HERO SECTION */
+.hero {
+  padding-top: calc(var(--nav-height) + 100px);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.hero-text-content { flex: 1.1; text-align: left; }
+.hero-title { font-size: 68px; font-weight: 800; line-height: 1.05; margin-bottom: 24px; letter-spacing: -1.5px; }
+.hero-subtitle { font-size: 22px; color: #333; margin-bottom: 36px; max-width: 500px; line-height: 1.4; }
+.hero-actions { display: flex; gap: 14px; }
+
+/* CANVAS CONTAINER */
+.canvas-container {
+  flex: 1.2;
+  height: 500px;
+  position: relative;
+}
+
+#creativeCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* TRUSTED BY */
+.trusted-by { margin-top: 80px; padding-bottom: 40px; }
+.trusted-title { font-size: 12px; color: #888; font-weight: 700; margin-bottom: 24px; letter-spacing: 1px; }
+.logos { display: flex; gap: 50px; font-weight: 800; font-size: 24px; opacity: 0.8; flex-wrap: wrap; align-items: center; }
+
+
+
+@media (max-width: 992px) {
+  .hero-title { font-size: 56px; }
+  .canvas-container { height: 400px; }
+}
+
+@media (max-width: 768px) {
+  .hero-container { flex-direction: column; text-align: center; }
+  .hero-text-content { text-align: center; }
+  .hero-actions { justify-content: center; }
+  .hero-subtitle { margin: 0 auto 32px auto; }
+  .canvas-container { width: 100%; height: 350px; }
+  .nav-right .nav-link:not(:last-child) { display: none; }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: 42px; }
+  .hero { padding-left: 24px; padding-right: 24px; }
+  .logos { gap: 30px; font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left"><a href="#" class="logo">Motion</a></div>
+  <div class="nav-right">
+    <a href="#" class="nav-link">Product</a>
+    <a href="#" class="nav-link">Solutions</a>
+    <a href="#" class="nav-link">Pricing</a>
+    <a href="#" class="nav-link" style="border-left: 1px solid #eee; padding-left: 20px;">Log in</a>
+  </div>
+</nav>
+
+<main class="hero">
+  <div class="hero-container">
+    <div class="hero-text-content">
+      <h1 class="hero-title">Build something beautiful.</h1>
+      <p class="hero-subtitle">Motion helps you and your team get more done with peace of mind.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-blue">Get Notion free</a>
+        <a href="#" class="btn btn-outline">Request a demo</a>
+      </div>
+    </div>
+
+    <div class="canvas-container">
+      <canvas id="creativeCanvas"></canvas>
+    </div>
+  </div>
+
+  <section class="trusted-by">
+    <p class="trusted-title">TRUSTED BY TEAMS AT</p>
+    <div class="logos">
+      <span>affirm</span>
+      <span>NETFLIX</span>
+      <span>Pinterest</span>
+      <span>Figma</span>
+    </div>
+  </section>
+</main>
+
+<script>
+const canvas = document.getElementById('creativeCanvas');
+const ctx = canvas.getContext('2d');
+
+let frame = 0;
+
+function drawNotionWindow(x, y, w, h, title) {
+  ctx.save();
+  ctx.translate(x, y);
+  
+  // Window Shadow
+  ctx.shadowColor = 'rgba(0,0,0,0.05)';
+  ctx.shadowBlur = 20;
+  
+  // Main Body
+  ctx.fillStyle = '#fff';
+  ctx.strokeStyle = '#000';
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.roundRect(0, 0, w, h, 10);
+  ctx.fill();
+  ctx.stroke();
+  
+  // Header Line
+  ctx.beginPath();
+  ctx.moveTo(0, 30); ctx.lineTo(w, 30);
+  ctx.stroke();
+  
+  // Window Controls
+  ctx.fillStyle = '#000';
+  for(let i=0; i<3; i++) {
+    ctx.beginPath();
+    ctx.arc(15 + i*15, 15, 3, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+
+  ctx.strokeStyle = '#eee';
+  for(let i=0; i<3; i++) {
+    ctx.beginPath();
+    ctx.moveTo(15, 50 + i*15);
+    ctx.lineTo(w - 15, 50 + i*15);
+    ctx.stroke();
+  }
+  
+  ctx.restore();
+}
+
+function drawUser(x, y, color) {
+  ctx.save();
+  ctx.translate(x, y);
+
+  const bounce = Math.sin(frame * 0.05) * 10;
+  ctx.translate(0, bounce);
+
+
+  ctx.fillStyle = color;
+  ctx.strokeStyle = '#000';
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.arc(0, 0, 30, 0, Math.PI*2);
+  ctx.fill();
+  ctx.stroke();
+
+
+  ctx.fillStyle = '#000';
+  ctx.beginPath(); ctx.arc(-10, -5, 2.5, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(10, -5, 2.5, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(0, 10, 8, 0, Math.PI); ctx.stroke();
+  
+  ctx.restore();
+}
+
+function drawSyncLines() {
+  const time = frame * 0.02;
+  ctx.setLineDash([5, 10]);
+  ctx.lineDashOffset = -frame;
+  ctx.strokeStyle = '#ddd';
+  ctx.lineWidth = 1.5;
+  
+
+  ctx.beginPath();
+  ctx.moveTo(canvas.width * 0.2, canvas.height * 0.4);
+  ctx.quadraticCurveTo(canvas.width * 0.5, canvas.height * 0.2, canvas.width * 0.8, canvas.height * 0.5);
+  ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+function animate() {
+  frame++;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+
+  drawSyncLines();
+
+
+  drawNotionWindow(canvas.width * 0.1, canvas.height * 0.35, 180, 140);
+  drawNotionWindow(canvas.width * 0.55, canvas.height * 0.5, 200, 160);
+
+
+  drawUser(canvas.width * 0.5, canvas.height * 0.3, '#FFD54F');
+  drawUser(canvas.width * 0.85, canvas.height * 0.45, '#E1F5FE');
+
+  requestAnimationFrame(animate);
+}
+
+function init() {
+  canvas.width = canvas.clientWidth;
+  canvas.height = canvas.clientHeight;
+}
+
+window.addEventListener('resize', init);
+init();
+animate();
+</script>
+
+</body>
+</html>
