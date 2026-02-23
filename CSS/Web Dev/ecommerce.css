@@ -1,8 +1,8 @@
-/* --- DESIGN TOKENS --- */
+
 :root {
-    --bg-paper: #F9F7F2;      /* Warm Cream */
-    --primary: #BC6C25;       /* Earthy Terracotta */
-    --dark: #283618;          /* Deep Forest Green */
+    --bg-paper: #F9F7F2;      
+    --primary: #BC6C25;       
+    --dark: #283618;          
     --text-main: #1c1c1c;
     --text-light: #606c38;
     --white: #ffffff;
@@ -27,7 +27,7 @@ h1, h2, h3 {
     font-family: 'Playfair Display', serif;
 }
 
-/* --- NAVIGATION --- */
+
 nav {
     display: flex;
     justify-content: space-between;
@@ -68,7 +68,6 @@ nav {
 
 .nav-links a:hover { color: var(--primary); }
 
-/* --- HERO SECTION --- */
 .hero {
     height: 90vh;
     display: flex;
@@ -116,7 +115,6 @@ nav {
     transform: translateY(-5px);
 }
 
-/* --- TRUST BAR --- */
 .trust-bar {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -131,7 +129,6 @@ nav {
     margin-bottom: 10px;
 }
 
-/* --- PRODUCT GRID --- */
 .shop-section {
     padding: 6rem 8%;
 }
@@ -152,11 +149,9 @@ nav {
     transition: var(--transition);
 }
 
-/* --- UPDATED IMAGE CONSTRAINTS --- */
 .img-container {
     overflow: hidden;
     background: #eee;
-    /* This forces all images to be the exact same height */
     height: 320px; 
     width: 100%;
     display: flex;
@@ -167,13 +162,11 @@ nav {
 .product-card img {
     width: 100%;
     height: 100%;
-    /* This ensures the image fills the area without stretching */
     object-fit: cover; 
     object-position: center;
     transition: var(--transition);
 }
 
-/* Adjust the grid gap slightly for a tighter look */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -198,7 +191,6 @@ nav {
     color: var(--primary);
 }
 
-/* --- NEWSLETTER --- */
 .newsletter {
     background: var(--dark);
     color: var(--bg-paper);
