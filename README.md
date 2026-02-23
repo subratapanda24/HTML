@@ -11,6 +11,7 @@ The projects focus on structured layouts, responsive design, and modern UI styli
 
 Projects are organized into two main categories:
 
+```
 CSS/
 │
 ├── BookShop/
@@ -27,6 +28,7 @@ HTML/
 ├── Nursery/
 ├── Photography/
 └── Portfolio/
+```
 
 Inside each category, every project folder contains its own HTML files, CSS files, and related media assets such as images, audio, or video files where required.
 
